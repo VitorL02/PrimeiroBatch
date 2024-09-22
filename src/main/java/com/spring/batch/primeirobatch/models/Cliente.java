@@ -1,10 +1,22 @@
 package com.spring.batch.primeirobatch.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cliente {
     private String nome;
     private String sobrenome;
     private Integer idade;
     private String email;
+    private List<Transacao> transacoes = new ArrayList<>();
+
+    public List<Transacao> getTransacoes() {
+        return transacoes;
+    }
+
+    public void setTransacoes(List<Transacao> transacoes) {
+        this.transacoes = transacoes;
+    }
 
     public String getNome() {
         return nome;
@@ -45,6 +57,7 @@ public class Cliente {
                 ", sobrenome='" + sobrenome + '\'' +
                 ", idade=" + idade +
                 ", email='" + email + '\'' +
+                (transacoes.isEmpty() ? "" : ", transacoes =" + transacoes ) +
                 '}';
     }
 }

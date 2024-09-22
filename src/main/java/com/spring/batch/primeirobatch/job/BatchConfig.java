@@ -23,12 +23,13 @@ public class BatchConfig {
     private PlatformTransactionManager transactionManager;
 
     @Bean
-    public Job imprimeOlaJob(Step imprimeOlaMundoStep,Step imprimeParImparStep,Step arquivoFixoStep,Step arquivoLimitadoStep) {
+    public Job imprimeOlaJob(Step imprimeOlaMundoStep,Step imprimeParImparStep,Step arquivoFixoStep,Step arquivoLimitadoStep,Step arquivoMultiploFormatoStep) {
         return new JobBuilder("imprimeOlaJob", jobRepository)
                 .start(imprimeOlaMundoStep)
                 .next(imprimeParImparStep)
                 .next(arquivoFixoStep)
                 .next(arquivoLimitadoStep)
+                .next(arquivoMultiploFormatoStep)
                 .incrementer(new RunIdIncrementer())
                 .build();
     }

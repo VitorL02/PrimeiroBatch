@@ -1,20 +1,17 @@
-package com.spring.batch.primeirobatch.step;
+package com.spring.batch.primeirobatch.jdbccursorreader.step;
 
-import com.spring.batch.primeirobatch.chunk.itemreader.ArquivoClienteTransacaoReader;
 import com.spring.batch.primeirobatch.models.Cliente;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
-import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.file.FlatFileItemReader;
+import org.springframework.batch.item.database.JdbcCursorItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
-
 @Configuration
-public class LeituraArquivoMultiploFormatoStepConfig {
+public class JdbcCursorStepConfig {
     @Autowired
     private JobRepository jobRepository;
 
@@ -22,12 +19,11 @@ public class LeituraArquivoMultiploFormatoStepConfig {
     private PlatformTransactionManager transactionManager;
 
     @Bean
-    public Step arquivoMultiploFormatoStep(FlatFileItemReader leituraClienteArquivoMultiploFormatoReader, ItemWriter leituraClienteArquivoMultiploFormatoWriter){
-        return new StepBuilder("arquivoMultiploFormatoStep",jobRepository)
+    public Step jdbcCursorStep (JdbcCursorItemReader<Cliente> jdbcCursorItemReader, ItemWriter<Cliente> jdbcCursorWriter ){
+        return new StepBuilder("jdbcCursorStep",jobRepository)
                 .<Cliente,Cliente>chunk(1,transactionManager)
-                .reader(new ArquivoClienteTransacaoReader(leituraClienteArquivoMultiploFormatoReader))
-                .writer(leituraClienteArquivoMultiploFormatoWriter)
+                .reader(jdbcCursorItemReader)
+                .writer(jdbcCursorWriter)
                 .build();
-
     }
 }

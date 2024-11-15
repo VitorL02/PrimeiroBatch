@@ -5,16 +5,16 @@ import com.spring.batch.primeirobatch.models.Cliente;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
-import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
+import org.springframework.batch.item.file.MultiResourceItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
-public class LeituraArquivoMultiploFormatoStepConfig {
+public class LeituraMultiplosArquivosStepConfig {
     @Autowired
     private JobRepository jobRepository;
 
@@ -22,12 +22,13 @@ public class LeituraArquivoMultiploFormatoStepConfig {
     private PlatformTransactionManager transactionManager;
 
     @Bean
-    public Step arquivoMultiploFormatoStep(FlatFileItemReader leituraClienteArquivoMultiploFormatoReader, ItemWriter leituraClienteArquivoMultiploFormatoWriter){
-        return new StepBuilder("arquivoMultiploFormatoStep",jobRepository)
+    public Step multiplosArquivosStep(MultiResourceItemReader<Cliente> multiplosArquivosClienteTransacaoReader, ItemWriter leituraClienteArquivoMultiploFormatoWriter){
+        return new StepBuilder("multiplosArquivosStep",jobRepository)
                 .<Cliente,Cliente>chunk(1,transactionManager)
-                .reader(new ArquivoClienteTransacaoReader(leituraClienteArquivoMultiploFormatoReader))
+                .reader(multiplosArquivosClienteTransacaoReader)
                 .writer(leituraClienteArquivoMultiploFormatoWriter)
                 .build();
 
     }
+
 }

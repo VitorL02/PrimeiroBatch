@@ -25,13 +25,13 @@ public class BatchConfig {
 
 
 
-    @Bean
-    public Job processorValidadores(@Qualifier("processorValidadoresStep") Step processorValidadoresStep) {
-        return new JobBuilder("processorValidadoresStep", jobRepository)
-                .start(processorValidadoresStep)
-                .incrementer(new RunIdIncrementer())
-                .build();
-    }
+//    @Bean
+//    public Job processorValidadores(@Qualifier("processorValidadoresStep") Step processorValidadoresStep) {
+//        return new JobBuilder("processorValidadoresStep", jobRepository)
+//                .start(processorValidadoresStep)
+//                .incrementer(new RunIdIncrementer())
+//                .build();
+//    }
 
 //    @Bean
 //    public Job leituraBancoCursor(Step jdbcCursorStep) {
@@ -42,18 +42,18 @@ public class BatchConfig {
 //    }
 
 
-//    @Bean
-//    public Job imprimeOlaJob(Step imprimeOlaMundoStep,Step imprimeParImparStep,Step arquivoFixoStep,Step arquivoLimitadoStep,Step arquivoMultiploFormatoStep,Step multiplosArquivosStep) {
-//        return new JobBuilder("imprimeOlaJob", jobRepository)
-//                .start(imprimeOlaMundoStep)
-//                .next(imprimeParImparStep)
+    @Bean
+    public Job imprimeOlaJob(Step imprimeOlaMundoStep,Step imprimeParImparStep,Step arquivoFixoStep,Step arquivoLimitadoStep,Step arquivoMultiploFormatoStep,Step multiplosArquivosStep) {
+        return new JobBuilder("imprimeOlaJob", jobRepository)
+                .start(imprimeOlaMundoStep)
+//              .next(imprimeParImparStep)
 //                .next(arquivoFixoStep)
-//                .next(arquivoLimitadoStep)
-//                .next(arquivoMultiploFormatoStep)
-//                 .next(multiplosArquivosStep)
-//                .incrementer(new RunIdIncrementer())
-//                .build();
-//    }
+                  .next(arquivoLimitadoStep)
+//              .next(arquivoMultiploFormatoStep)
+//               .next(multiplosArquivosStep)
+                .incrementer(new RunIdIncrementer())
+                .build();
+    }
 
 
 

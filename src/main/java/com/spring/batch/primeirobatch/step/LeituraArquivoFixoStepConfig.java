@@ -20,11 +20,11 @@ public class LeituraArquivoFixoStepConfig {
     private PlatformTransactionManager transactionManager;
 
     @Bean
-    public Step arquivoFixoStep(ItemReader<Cliente> leituraClienteArquivoFixoReader, ItemWriter<Cliente> leituraClienteArquivoFixoWriter){
+    public Step arquivoFixoStep(ItemReader<Cliente> leituraClienteArquivoFixoReader, ItemWriter<Cliente> escritaClienteArquivoFixoWriter){
         return new StepBuilder("arquivoFixoStep",jobRepository)
                 .<Cliente,Cliente>chunk(1,transactionManager)
                 .reader(leituraClienteArquivoFixoReader)
-                .writer(leituraClienteArquivoFixoWriter)
+                .writer(escritaClienteArquivoFixoWriter)
                 .build();
     }
 

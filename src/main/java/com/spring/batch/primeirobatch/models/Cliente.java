@@ -13,8 +13,8 @@ public class Cliente {
     @Size(min = 1,max = 100)
     @Pattern(regexp = "[a-zA-Z\\s]+", message = "Nome deve ser alfabetico")
     private String nome;
-//    @NotNull
-//    private String sobrenome;
+    @NotNull
+    private String sobrenome;
 
     @NotNull
     @Range(min = 18,max = 130)
@@ -25,17 +25,15 @@ public class Cliente {
     @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "Email invalido")
     private String email;
 
+    private List<Transacao> transacoes = new ArrayList<>();
 
+    public List<Transacao> getTransacoes() {
+        return transacoes;
+    }
 
-//    private List<Transacao> transacoes = new ArrayList<>();
-//
-//    public List<Transacao> getTransacoes() {
-//        return transacoes;
-//    }
-//
-//    public void setTransacoes(List<Transacao> transacoes) {
-//        this.transacoes = transacoes;
-//    }
+    public void setTransacoes(List<Transacao> transacoes) {
+        this.transacoes = transacoes;
+    }
 
     public String getNome() {
         return nome;
@@ -45,13 +43,13 @@ public class Cliente {
         this.nome = nome;
     }
 
-//    public String getSobrenome() {
-//        return sobrenome;
-//    }
-//
-//    public void setSobrenome(String sobrenome) {
-//        this.sobrenome = sobrenome;
-//    }
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
 
     public Integer getIdade() {
         return idade;
